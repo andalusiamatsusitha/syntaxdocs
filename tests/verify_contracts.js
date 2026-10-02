@@ -69,6 +69,12 @@ assert(fs.existsSync(path.join(__dirname, '../apps/cms/public/index.php')), 'CMS
 assert(fs.existsSync(path.join(__dirname, '../apps/cms/routes/web.php')), 'CMS routes/web.php exists');
 assert(fs.existsSync(path.join(__dirname, '../apps/school/public/index.php')), 'School public/index.php exists');
 assert(fs.existsSync(path.join(__dirname, '../apps/school/public/theme.css')), 'School custom theme.css exists');
+assert(fs.existsSync(path.join(__dirname, '../apps/orbital/public/index.php')), 'Orbital public/index.php exists');
+assert(fs.existsSync(path.join(__dirname, '../apps/orbital/routes/api.php')), 'Orbital routes/api.php exists');
+assert(fs.existsSync(path.join(__dirname, '../apps/orbital/routes/web.php')), 'Orbital routes/web.php exists');
+assert(fs.existsSync(path.join(__dirname, '../apps/orbital/public/theme.css')), 'Orbital custom theme.css exists');
+assert(fs.existsSync(path.join(__dirname, '../apps/orbital/public/js/orbital-engine.js')), 'Orbital 3D WebGL engine exists');
+assert(fs.existsSync(path.join(__dirname, '../apps/orbital/public/js/orbital-hud.js')), 'Orbital HUD controller exists');
 
 console.log('\n==============================================');
 console.log(`SUMMARY: Passed: ${passed} | Failed: ${failed}`);

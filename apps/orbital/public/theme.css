@@ -1,0 +1,785 @@
+/**
+ * Syntax Orbital Ground Station | Modern Aerospace HUD Design System
+ * Inspired by modern cosmic AI & aerospace interfaces (cosmic365ai.com, Linear, SpaceX telemetry).
+ * High visual breathing room, Bento Grid layout, and Floating Command Dock.
+ */
+
+:root {
+  --color-primary: #06b6d4;
+  --color-primary-hover: #0891b2;
+  --color-primary-light: rgba(6, 182, 212, 0.12);
+  --color-link: #06b6d4;
+
+  --color-accent-amber: #f59e0b;
+  --color-accent-amber-light: rgba(245, 158, 11, 0.15);
+  --color-accent-emerald: #10b981;
+  --color-accent-red: #ef4444;
+
+  --color-bg-space: #050811;
+  --color-bg-panel: rgba(8, 15, 33, 0.94);
+  --color-panel-border: rgba(6, 182, 212, 0.25);
+  --color-text-dim: #94a3b8;
+  --color-text-bright: #f8fafc;
+
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "JetBrains Mono", monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+}
+
+body.theme-orbital {
+  background-color: var(--color-bg-space);
+  color: var(--color-text-bright);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* 3D WebGL Canvas Layer */
+#orbital-canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+#orbital-webgl-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Top Navbar */
+.theme-orbital .c-navbar {
+  background: rgba(5, 8, 17, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-panel-border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 64px;
+}
+
+.theme-orbital .c-navbar__brand {
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+}
+
+.theme-orbital .c-navbar__brand::before {
+  content: '';
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 12px var(--color-primary);
+  animation: pulse-beacon 2s infinite ease-in-out;
+}
+
+@keyframes pulse-beacon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+/* Horizontal Navbar Menu without bullets */
+.theme-orbital .c-navbar__nav,
+.theme-orbital .c-navbar__menu,
+ul.c-navbar__menu,
+ul.c-navbar__nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 8px !important;
+}
+
+.theme-orbital .c-navbar__nav li,
+.theme-orbital .c-navbar__menu li,
+.theme-orbital .c-navbar__item,
+ul.c-navbar__menu li,
+ul.c-navbar__nav li {
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.theme-orbital .c-navbar__nav li::before,
+.theme-orbital .c-navbar__menu li::before,
+.theme-orbital .c-navbar__item::before,
+ul.c-navbar__menu li::before,
+ul.c-navbar__nav li::before {
+  content: none !important;
+  display: none !important;
+}
+
+.theme-orbital .c-navbar__link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-text-dim);
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.theme-orbital .c-navbar__link:hover,
+.theme-orbital .c-navbar__link.is-active {
+  color: var(--color-primary);
+  background: rgba(6, 182, 212, 0.14);
+  text-decoration: none;
+}
+
+/* Floating Top Right Live Status Pill */
+.orbital-top-status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+}
+
+.orbital-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-accent-emerald);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--color-accent-emerald);
+}
+
+/* Storyline Content */
+.orbital-storyline-container {
+  position: relative;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.orbital-stage-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 24px 80px;
+}
+
+.orbital-stage-content {
+  max-width: 620px;
+  pointer-events: auto;
+}
+
+/* Hero Badge */
+.orbital-stage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.orbital-stage-title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.12;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.orbital-stage-desc {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  margin-bottom: 28px;
+}
+
+/* Horizontal Metrics Ticker Bar */
+.orbital-metrics-ticker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  background: rgba(8, 15, 33, 0.94);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-top: 24px;
+  pointer-events: auto;
+}
+
+.orbital-ticker-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.orbital-ticker-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  letter-spacing: 0.05em;
+}
+
+.orbital-ticker-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Satellite Selector Pills (Stage 2) */
+.orbital-satellite-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  pointer-events: auto;
+}
+
+.orbital-sat-pill {
+  background: rgba(8, 15, 33, 0.8);
+  border: 1px solid var(--color-panel-border);
+  color: var(--color-text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.orbital-sat-pill:hover,
+.orbital-sat-pill.is-active {
+  border-color: var(--color-primary);
+  background: rgba(6, 182, 212, 0.18);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
+}
+
+.orbital-sat-pill__badge {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--color-accent-amber);
+}
+
+/* Modern Bento Grid Telemetry (Stage 3) */
+.orbital-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 900px;
+  pointer-events: auto;
+  margin-top: 20px;
+}
+
+.bento-card {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+}
+
+.bento-card:hover {
+  border-color: rgba(6, 182, 212, 0.5);
+}
+
+.bento-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 8px;
+}
+
+/* 2D Radar Canvas Container */
+.radar-scope-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+#radar-canvas {
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+/* Waveform Canvas */
+#waveform-canvas {
+  width: 100%;
+  height: 120px;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Terminal Log Box */
+.terminal-log-box {
+  background: rgba(3, 6, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  padding: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #a5f3fc;
+  height: 140px;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.terminal-line {
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.terminal-line--dim {
+  color: #94a3b8;
+}
+
+.terminal-line--green {
+  color: var(--color-accent-emerald);
+}
+
+.terminal-line--amber {
+  color: var(--color-accent-amber);
+}
+
+/* Floating Bottom Command Dock (Mission Deck) */
+.orbital-command-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(6, 11, 24, 0.88);
+  border: 1px solid var(--color-panel-border);
+  padding: 8px 14px;
+  border-radius: 9999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+  pointer-events: auto;
+}
+
+.dock-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.dock-btn i {
+  font-size: 0.85rem;
+}
+
+.dock-btn:hover,
+.dock-btn.is-active {
+  color: #ffffff;
+  background: rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+.dock-btn--primary {
+  background: var(--color-primary);
+  color: #050811;
+  font-weight: 700;
+  border: 1px solid var(--color-primary);
+}
+
+.dock-btn--primary:hover {
+  background: var(--color-primary-hover);
+  color: #ffffff;
+}
+
+.dock-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 4px;
+}
+
+/* Reticle Tooltip */
+#orbital-3d-tooltip {
+  position: fixed;
+  display: none;
+  background: rgba(5, 8, 17, 0.95);
+  border: 1px solid var(--color-primary);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #ffffff;
+  pointer-events: none;
+  z-index: 200;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+}
+
+/* Responsive adjustments & Touch Accessibility (R-03) */
+@media (max-width: 900px) {
+  .orbital-bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .orbital-stage-title {
+    font-size: 2.2rem;
+  }
+  .orbital-command-dock {
+    width: 90%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 6px 10px;
+  }
+  .dock-btn {
+    min-height: 44px !important;
+    padding: 10px 16px !important;
+  }
+  .orbital-sat-pill {
+    min-height: 44px !important;
+    padding: 10px 18px !important;
+  }
+  .theme-orbital .c-modal__close {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* Keyboard Focus Indicators (R-32) */
+.dock-btn:focus-visible,
+.orbital-sat-pill:focus-visible,
+.c-btn:focus-visible,
+.c-modal__close:focus-visible,
+.orbital-btn-uplink-submit:focus-visible {
+  outline: 2px solid var(--color-primary) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.5) !important;
+}
+
+/* ==========================================================================
+   Mission Control HUD Modal & Form Styling (.theme-orbital .c-modal)
+   ========================================================================== */
+
+.theme-orbital .c-modal__dialog {
+  background: rgba(8, 15, 33, 0.98) !important;
+  border: 1px solid var(--color-panel-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 30px rgba(6, 182, 212, 0.2) !important;
+  max-width: 500px !important;
+  overflow: hidden !important;
+}
+
+.theme-orbital .c-modal__header {
+  background: rgba(5, 10, 24, 0.85) !important;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.2) !important;
+  padding: 18px 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.theme-orbital .c-modal__title {
+  color: var(--color-primary) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 !important;
+}
+
+.theme-orbital .c-modal__close {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #94a3b8 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+}
+
+.theme-orbital .c-modal__close:hover {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  color: #f87171 !important;
+}
+
+.theme-orbital .c-modal__body {
+  padding: 24px !important;
+  background: transparent !important;
+}
+
+.theme-orbital .c-modal__footer {
+  background: rgba(5, 9, 20, 0.95) !important;
+  border-top: 1px solid rgba(6, 182, 212, 0.18) !important;
+  padding: 14px 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+}
+
+.theme-orbital .c-modal__footer .c-btn--secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #cbd5e1 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  padding: 8px 18px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-orbital .c-modal__footer .c-btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  border-color: rgba(6, 182, 212, 0.5) !important;
+}
+
+/* Modal Target Telemetry Badge Card */
+.orbital-modal-target-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.orbital-modal-target-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.orbital-modal-target-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.orbital-modal-target-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.orbital-modal-target-name {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+}
+
+.orbital-modal-target-norad {
+  font-size: 0.78rem;
+  color: var(--color-accent-amber);
+  margin-left: 6px;
+  font-weight: normal;
+}
+
+/* Aerospace Command Select Control */
+.theme-orbital select.c-form-control,
+.theme-orbital select.c-form-select,
+.theme-orbital select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2306b6d4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 16px 16px !important;
+  background-color: rgba(5, 8, 17, 0.95) !important;
+  border: 1px solid rgba(6, 182, 212, 0.35) !important;
+  border-radius: 8px !important;
+  color: #f8fafc !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  padding: 12px 42px 12px 14px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.theme-orbital select.c-form-control:hover,
+.theme-orbital select.c-form-select:hover {
+  border-color: rgba(6, 182, 212, 0.6) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 12px rgba(6, 182, 212, 0.15) !important;
+}
+
+.theme-orbital select.c-form-control:focus,
+.theme-orbital select.c-form-select:focus {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.25), 0 0 20px rgba(6, 182, 212, 0.25) !important;
+}
+
+.theme-orbital select option {
+  background-color: #080f21 !important;
+  color: #f8fafc !important;
+  padding: 10px 14px !important;
+}
+
+/* Modal Uplink Specs Grid Box */
+.orbital-modal-specs-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 14px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #94a3b8;
+}
+
+.orbital-modal-specs-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.orbital-modal-specs-item strong {
+  color: #f8fafc;
+}
+
+/* Uplink Submit Button */
+.orbital-btn-uplink-submit {
+  width: 100% !important;
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  color: #050811 !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 0.04em !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  box-shadow: 0 4px 18px rgba(6, 182, 212, 0.4) !important;
+  transition: all 0.2s ease !important;
+}
+
+.orbital-btn-uplink-submit:hover {
+  background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%) !important;
+  box-shadow: 0 6px 26px rgba(6, 182, 212, 0.6) !important;
+  transform: translateY(-1px);
+}
+
+.orbital-btn-uplink-submit:active {
+  transform: translateY(0);
+}
+
+.theme-orbital .c-alert {
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-orbital .c-alert--success {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #34d399 !important;
+}
+
+.theme-orbital .c-alert--danger {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+  color: #f87171 !important;
+}

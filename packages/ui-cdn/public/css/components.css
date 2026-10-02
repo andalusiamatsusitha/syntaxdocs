@@ -135,11 +135,21 @@
   text-decoration: none;
 }
 
-.c-navbar__nav {
+.c-navbar__nav,
+.c-navbar__menu {
   display: flex;
   align-items: center;
   list-style: none;
+  margin: 0;
+  padding: 0;
   gap: var(--space-1);
+}
+
+.c-navbar__nav li,
+.c-navbar__menu li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .c-navbar__link {
@@ -407,6 +417,7 @@
 
 .c-form-input,
 .c-form-select,
+.c-form-control,
 .c-form-textarea {
   width: 100%;
   font-family: var(--font-sans);
@@ -419,8 +430,22 @@
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.c-form-select,
+select.c-form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  background-size: 16px 16px;
+  padding-right: var(--space-8);
+  cursor: pointer;
+}
+
 .c-form-input:focus,
 .c-form-select:focus,
+.c-form-control:focus,
 .c-form-textarea:focus {
   outline: none;
   border-color: var(--color-primary);

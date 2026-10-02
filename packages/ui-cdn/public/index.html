@@ -6,6 +6,9 @@
   <title>Syntax UI Design System — Showcase & Test Suite</title>
   <!-- Load Core CSS (Tokens + Base + BEM Components) -->
   <link rel="stylesheet" href="css/core.min.css">
+  <!-- Load Font Awesome 6 & Google Material Symbols -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
 
@@ -25,8 +28,8 @@
           <li><a href="#tables" class="c-navbar__link">Tabel</a></li>
           <li><a href="#forms" class="c-navbar__link">Form</a></li>
           <li class="c-dropdown">
-            <button type="button" class="c-navbar__link c-btn--outline" data-toggle="dropdown" style="border:none; cursor:pointer;">
-              Akun Profil &#9662;
+            <button type="button" class="c-navbar__link c-btn--outline" data-toggle="dropdown" style="border:none; cursor:pointer; display:inline-flex; align-items:center;">
+              Akun Profil <i class="fa-solid fa-chevron-down" style="font-size:0.72rem; margin-left:6px;"></i>
             </button>
             <div class="c-dropdown__menu">
               <a href="#settings" class="c-dropdown__item">Pengaturan</a>

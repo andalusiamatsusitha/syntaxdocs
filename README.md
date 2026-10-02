@@ -23,7 +23,8 @@ syntaxdocs/
 │
 ├── apps/                     # Contoh Produk-Produk Mandiri
 │   ├── cms/                  # Produk 1: Panel CMS (artikel, modal hapus, database db_cms)
-│   └── school/               # Produk 2: Sistem Sekolah (data siswa, tema emerald green, db_school)
+│   ├── school/               # Produk 2: Sistem Sekolah (data siswa, tema emerald green, db_school)
+│   └── orbital/              # Produk 3: Orbital Ground Station (3D WebGL Parallax, telemetri live, db_orbital)
 │
 ├── docs/                     # Dokumentasi & Spesifikasi Portabilitas
 │   ├── specs/                # Kontrak schema UI & API untuk Node.js / Golang
@@ -124,5 +125,18 @@ node tests/verify_contracts.js
 php tests/run_tests.php
 ```
 
-### Melihat Showcase Komponen Visual:
-Buka file `packages/ui-cdn/public/index.html` di web browser apa pun.
+### Menjalankan Preview Server Lokal (Node.js):
+```bash
+node preview.js
+```
+- Showcase & Central UI CDN: `http://localhost:8085`
+- **Orbital Ground Station 3D Parallax**: `http://localhost:8085/orbital/`
+
+### Menjalankan Ekosistem Lengkap (Docker):
+```bash
+docker-compose up -d
+```
+- Central UI CDN: `http://localhost:8090`
+- CMS Product App: `http://localhost:8001`
+- School Product App: `http://localhost:8002`
+- Orbital 3D Mission Control: `http://localhost:8003`
