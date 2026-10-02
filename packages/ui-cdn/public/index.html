@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntax UI Design System — Showcase & Test Suite</title>
+  <!-- Load Core CSS (Tokens + Base + BEM Components) -->
+  <link rel="stylesheet" href="css/core.min.css">
+</head>
+<body>
+
+  <!-- 1. Header / Navbar -->
+  <header class="c-navbar">
+    <div class="c-container c-navbar__container">
+      <a href="#" class="c-navbar__brand">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+        </svg>
+        <span>Syntax UI Design System</span>
+      </a>
+
+      <nav>
+        <ul class="c-navbar__nav">
+          <li><a href="#buttons" class="c-navbar__link is-active">Komponen</a></li>
+          <li><a href="#tables" class="c-navbar__link">Tabel</a></li>
+          <li><a href="#forms" class="c-navbar__link">Form</a></li>
+          <li class="c-dropdown">
+            <button type="button" class="c-navbar__link c-btn--outline" data-toggle="dropdown" style="border:none; cursor:pointer;">
+              Akun Profil &#9662;
+            </button>
+            <div class="c-dropdown__menu">
+              <a href="#settings" class="c-dropdown__item">Pengaturan</a>
+              <a href="#docs" class="c-dropdown__item">Dokumentasi</a>
+              <div class="c-dropdown__divider"></div>
+              <a href="#logout" class="c-dropdown__item" style="color: var(--color-danger);">Keluar</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 2. Main Content Container -->
+  <main class="c-container py-6">
+
+    <!-- Hero / Introduction -->
+    <div class="mb-6">
+      <h2>Showcase & Pengujian Komponen UI Shared CDN</h2>
+      <p class="text-muted">
+        Komponen ini 100% netral bahasa (HTML, CSS BEM, dan Vanilla JS). Dapat dikonsumsi langsung oleh <strong>PHP</strong>, <strong>Node.js</strong>, <strong>Golang</strong>, maupun aplikasi web statis.
+      </p>
+    </div>
+
+    <!-- Alert Examples -->
+    <div class="mb-6">
+      <div class="c-alert c-alert--success">
+        <div>
+          <strong>Berhasil:</strong> Aset UI CDN berhasil dimuat dengan performa maksimal dan zero-runtime framework.
+        </div>
+        <button type="button" class="c-alert__close" data-dismiss="alert" aria-label="Tutup">&times;</button>
+      </div>
+
+      <div class="c-alert c-alert--info">
+        <div>
+          <strong>Informasi:</strong> Semua interaksi (Modal, Dropdown, Dismiss) dikendalikan secara otomatis oleh <code>core.js</code> melalui attribute <code>data-toggle</code>.
+        </div>
+        <button type="button" class="c-alert__close" data-dismiss="alert" aria-label="Tutup">&times;</button>
+      </div>
+    </div>
+
+    <!-- Section 1: Buttons & Badges -->
+    <section id="buttons" class="mb-6">
+      <div class="c-card">
+        <div class="c-card__header">
+          <h3 class="c-card__title">1. Tombol & Badge Status</h3>
+          <span class="c-badge c-badge--primary">UI Elements</span>
+        </div>
+        <div class="c-card__body">
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <button type="button" class="c-btn c-btn--primary">Primary Action</button>
+            <button type="button" class="c-btn c-btn--secondary">Secondary Action</button>
+            <button type="button" class="c-btn c-btn--success">Success Button</button>
+            <button type="button" class="c-btn c-btn--danger">Danger Action</button>
+            <button type="button" class="c-btn c-btn--outline">Outline Action</button>
+            <button type="button" class="c-btn c-btn--primary" disabled>Disabled State</button>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 align-center">
+            <span class="text-muted">Badge Status:</span>
+            <span class="c-badge c-badge--primary">Aktif</span>
+            <span class="c-badge c-badge--success">Selesai</span>
+            <span class="c-badge c-badge--warning">Menunggu</span>
+            <span class="c-badge c-badge--danger">Dibatalkan</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Cards & Interactive Modal Trigger -->
+    <section class="mb-6">
+      <div class="c-row">
+        <div class="c-col-4">
+          <div class="c-card">
+            <div class="c-card__header">
+              <h4 class="c-card__title">CMS Product</h4>
+              <span class="c-badge c-badge--success">Online</span>
+            </div>
+            <div class="c-card__body">
+              <p>Produk manajemen konten terhubung dengan database <code>db_cms</code> menggunakan shared core.</p>
+            </div>
+            <div class="c-card__footer">
+              <button type="button" class="c-btn c-btn--sm c-btn--primary" data-toggle="modal" data-target="#demoModal">
+                Buka Dialog Modal
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-col-4">
+          <div class="c-card">
+            <div class="c-card__header">
+              <h4 class="c-card__title">School System</h4>
+              <span class="c-badge c-badge--primary">Active</span>
+            </div>
+            <div class="c-card__body">
+              <p>Sistem informasi sekolah terhubung ke <code>db_school</code> dengan kustomisasi CSS tokens warna hijau.</p>
+            </div>
+            <div class="c-card__footer">
+              <button type="button" class="c-btn c-btn--sm c-btn--secondary" data-toggle="modal" data-target="#demoModal">
+                Detail Sekolah
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-col-4">
+          <div class="c-card">
+            <div class="c-card__header">
+              <h4 class="c-card__title">E-Commerce</h4>
+              <span class="c-badge c-badge--warning">Development</span>
+            </div>
+            <div class="c-card__body">
+              <p>Platform belanja multi-produk siap dihubungkan ke Golang / Node.js backend di masa mendatang.</p>
+            </div>
+            <div class="c-card__footer">
+              <button type="button" class="c-btn c-btn--sm c-btn--secondary" data-toggle="modal" data-target="#demoModal">
+                Kelola Katalog
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Data Table -->
+    <section id="tables" class="mb-6">
+      <div class="c-card">
+        <div class="c-card__header">
+          <h3 class="c-card__title">2. Tabel Data Pengguna Multi-Produk</h3>
+          <button type="button" class="c-btn c-btn--sm c-btn--primary">+ Tambah Pengguna</button>
+        </div>
+        <div class="c-table-wrapper">
+          <table class="c-table c-table--striped c-table--hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nama Pengguna</th>
+                <th>Email</th>
+                <th>Aplikasi Terdaftar</th>
+                <th>Status</th>
+                <th style="text-align: right;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#USR-001</td>
+                <td><strong>Ahmad Admin</strong></td>
+                <td>ahmad@syntax.local</td>
+                <td>CMS & School</td>
+                <td><span class="c-badge c-badge--success">Aktif</span></td>
+                <td style="text-align: right;">
+                  <button type="button" class="c-btn c-btn--sm c-btn--secondary" data-toggle="modal" data-target="#demoModal">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#USR-002</td>
+                <td><strong>Budi Guru</strong></td>
+                <td>budi@syntax.local</td>
+                <td>School Management</td>
+                <td><span class="c-badge c-badge--success">Aktif</span></td>
+                <td style="text-align: right;">
+                  <button type="button" class="c-btn c-btn--sm c-btn--secondary" data-toggle="modal" data-target="#demoModal">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#USR-003</td>
+                <td><strong>Siti Editor</strong></td>
+                <td>siti@syntax.local</td>
+                <td>CMS Platform</td>
+                <td><span class="c-badge c-badge--warning">Menunggu Verifikasi</span></td>
+                <td style="text-align: right;">
+                  <button type="button" class="c-btn c-btn--sm c-btn--secondary" data-toggle="modal" data-target="#demoModal">Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Form Controls -->
+    <section id="forms" class="mb-6">
+      <div class="c-card">
+        <div class="c-card__header">
+          <h3 class="c-card__title">3. Form Kontrol Standar</h3>
+        </div>
+        <div class="c-card__body">
+          <form onsubmit="event.preventDefault(); alert('Form submitted successfully!');">
+            <div class="c-row">
+              <div class="c-col-6">
+                <div class="c-form-group">
+                  <label class="c-form-label" for="appName">Nama Produk / Aplikasi</label>
+                  <input type="text" id="appName" class="c-form-input" placeholder="Misal: Portal Siswa Mandiri" required>
+                  <span class="c-form-help">Nama yang akan tampil pada judul navbar.</span>
+                </div>
+              </div>
+
+              <div class="c-col-6">
+                <div class="c-form-group">
+                  <label class="c-form-label" for="appCategory">Kategori Sistem</label>
+                  <select id="appCategory" class="c-form-select">
+                    <option value="cms">Content Management System (CMS)</option>
+                    <option value="school">School / Academic System</option>
+                    <option value="ecommerce">E-Commerce & Store</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="c-col-12">
+                <div class="c-form-group">
+                  <label class="c-form-label" for="appDesc">Deskripsi Ringkas</label>
+                  <textarea id="appDesc" class="c-form-textarea" rows="3" placeholder="Tuliskan deskripsi aplikasi..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-end gap-2">
+              <button type="reset" class="c-btn c-btn--secondary">Reset Form</button>
+              <button type="submit" class="c-btn c-btn--primary">Simpan Konfigurasi</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       Interactive Modal Element
+       ========================================== -->
+  <div class="c-modal" id="demoModal" aria-hidden="true" role="dialog">
+    <div class="c-modal__backdrop" data-dismiss="modal"></div>
+    <div class="c-modal__dialog">
+      <div class="c-modal__header">
+        <h4 class="c-modal__title">Konfirmasi Aksi Komponen</h4>
+        <button type="button" class="c-modal__close" data-dismiss="modal" aria-label="Tutup">&times;</button>
+      </div>
+      <div class="c-modal__body">
+        <p>Ini adalah komponen <strong>Modal Interaktif</strong> yang digerakkan oleh <code>core.js</code> tanpa framework eksternal.</p>
+        <p class="text-muted mb-0">Modal dapat ditutup dengan menekan tombol Batal, tanda silang, mengklik area luar (backdrop), atau menekan tombol <strong>Esc</strong> pada keyboard.</p>
+      </div>
+      <div class="c-modal__footer">
+        <button type="button" class="c-btn c-btn--secondary" data-dismiss="modal">Tutup / Batal</button>
+        <button type="button" class="c-btn c-btn--primary" onclick="alert('Aksi dikonfirmasi!'); CoreUI.Modal.close('#demoModal');">
+          Lanjutkan Aksi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Core JavaScript Engine -->
+  <script src="js/core.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+/**
+ * Syntax Core Components (components.css)
+ * Modular BEM component styles.
+ */
+
+/* ==========================================================================
+   1. BUTTONS (.c-btn)
+   ========================================================================== */
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  line-height: 1;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.c-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.c-btn:disabled,
+.c-btn.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Button Variants */
+.c-btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+.c-btn--primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  text-decoration: none;
+}
+
+.c-btn--secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.c-btn--secondary:hover {
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-border-hover);
+  text-decoration: none;
+}
+
+.c-btn--danger {
+  background-color: var(--color-danger);
+  color: #ffffff;
+  border-color: var(--color-danger);
+}
+.c-btn--danger:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+  text-decoration: none;
+}
+
+.c-btn--success {
+  background-color: var(--color-success);
+  color: #ffffff;
+  border-color: var(--color-success);
+}
+.c-btn--success:hover {
+  background-color: #059669;
+  border-color: #059669;
+  text-decoration: none;
+}
+
+.c-btn--outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.c-btn--outline:hover {
+  background-color: var(--color-primary-light);
+  text-decoration: none;
+}
+
+/* Button Sizes */
+.c-btn--sm {
+  font-size: var(--font-size-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+}
+.c-btn--lg {
+  font-size: var(--font-size-base);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+
+/* ==========================================================================
+   2. NAVBAR (.c-navbar)
+   ========================================================================== */
+.c-navbar {
+  height: var(--header-height);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.c-navbar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.c-navbar__brand {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.c-navbar__brand:hover {
+  text-decoration: none;
+}
+
+.c-navbar__nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: var(--space-1);
+}
+
+.c-navbar__link {
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.c-navbar__link:hover,
+.c-navbar__link.is-active {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  text-decoration: none;
+}
+
+
+/* ==========================================================================
+   3. DROPDOWN (.c-dropdown)
+   ========================================================================== */
+.c-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.c-dropdown__menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-1);
+  min-width: 12rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-1) 0;
+  list-style: none;
+  display: none;
+  z-index: 50;
+}
+
+.c-dropdown__menu.is-open {
+  display: block;
+}
+
+.c-dropdown__item {
+  display: block;
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.c-dropdown__item:hover {
+  background-color: var(--color-surface-muted);
+  text-decoration: none;
+}
+
+.c-dropdown__divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--space-1) 0;
+}
+
+
+/* ==========================================================================
+   4. CARDS (.c-card)
+   ========================================================================== */
+.c-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal);
+}
+
+.c-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.c-card__header {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c-card__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0;
+}
+
+.c-card__body {
+  padding: var(--space-4);
+}
+
+.c-card__footer {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+
+/* ==========================================================================
+   5. MODAL (.c-modal)
+   ========================================================================== */
+.c-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.c-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.c-modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+
+.c-modal__dialog {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 32rem;
+  overflow: hidden;
+  transform: translateY(1rem) scale(0.98);
+  transition: transform var(--transition-normal);
+}
+
+.c-modal.is-open .c-modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.c-modal__header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c-modal__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0;
+}
+
+.c-modal__close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+}
+.c-modal__close:hover {
+  color: var(--color-text);
+}
+
+.c-modal__body {
+  padding: var(--space-5);
+}
+
+.c-modal__footer {
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+
+/* ==========================================================================
+   6. TABLE (.c-table)
+   ========================================================================== */
+.c-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.c-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.c-table th {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text);
+  font-weight: 600;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.c-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.c-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.c-table--striped tbody tr:nth-child(even) {
+  background-color: var(--color-surface-muted);
+}
+
+.c-table--hover tbody tr:hover {
+  background-color: var(--color-primary-light);
+}
+
+
+/* ==========================================================================
+   7. FORM CONTROLS (.c-form-*)
+   ========================================================================== */
+.c-form-group {
+  margin-bottom: var(--space-4);
+}
+
+.c-form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.c-form-input,
+.c-form-select,
+.c-form-textarea {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.c-form-input:focus,
+.c-form-select:focus,
+.c-form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.c-form-help {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.c-form-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: var(--space-1);
+}
+
+
+/* ==========================================================================
+   8. ALERTS (.c-alert)
+   ========================================================================== */
+.c-alert {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  border: 1px solid transparent;
+}
+
+.c-alert--success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border-color: var(--color-success);
+}
+
+.c-alert--danger {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border-color: var(--color-danger);
+}
+
+.c-alert--warning {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border-color: var(--color-warning);
+}
+
+.c-alert--info {
+  background-color: var(--color-info-bg);
+  color: var(--color-info-text);
+  border-color: var(--color-info);
+}
+
+.c-alert__close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.7;
+}
+.c-alert__close:hover {
+  opacity: 1;
+}
+
+
+/* ==========================================================================
+   9. BADGES (.c-badge)
+   ========================================================================== */
+.c-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  line-height: 1.25;
+}
+
+.c-badge--primary { background-color: var(--color-primary-light); color: var(--color-primary); }
+.c-badge--success { background-color: var(--color-success-bg); color: var(--color-success-text); }
+.c-badge--warning { background-color: var(--color-warning-bg); color: var(--color-warning-text); }
+.c-badge--danger  { background-color: var(--color-danger-bg); color: var(--color-danger-text); }
