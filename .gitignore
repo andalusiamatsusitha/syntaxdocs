@@ -1,0 +1,21 @@
+# Security & Credentials
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+
+# Dependencies
+vendor/
+node_modules/
+
+# Agent local cache & internal tools
+.agents/
+skills-lock.json
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
