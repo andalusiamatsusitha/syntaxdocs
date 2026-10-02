@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Syntax Core UI Component Specifications",
+  "description": "Language-agnostic prop contracts for UI components across PHP, Node.js, and Golang.",
+  "components": {
+    "navbar": {
+      "description": "Header navigation bar with brand, items, and right-aligned HTML.",
+      "props": {
+        "brand": { "type": "string", "default": "Syntax App", "description": "Brand title or logo text" },
+        "brand_url": { "type": "string", "default": "/", "description": "URL link for brand logo" },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": { "type": "string" },
+              "url": { "type": "string" },
+              "active": { "type": "boolean", "default": false }
+            },
+            "required": ["label", "url"]
+          }
+        },
+        "right_html": { "type": "string", "description": "Raw HTML for right-aligned items (e.g. user dropdown)" }
+      }
+    },
+    "modal": {
+      "description": "Accessible dialog modal with backdrop and action buttons.",
+      "props": {
+        "id": { "type": "string", "required": true, "description": "Unique DOM element ID" },
+        "title": { "type": "string", "description": "Modal header title" },
+        "body": { "type": "string", "description": "Modal body content (HTML or plain text)" },
+        "cancel_label": { "type": "string", "default": "Batal" },
+        "confirm_label": { "type": "string", "description": "Optional label for confirm button" },
+        "confirm_action": { "type": "string", "description": "URL target for form submission if confirm button acts as a form" },
+        "confirm_method": { "type": "string", "enum": ["GET", "POST", "PUT", "DELETE"], "default": "POST" },
+        "variant": { "type": "string", "enum": ["primary", "secondary", "danger", "success"], "default": "primary" }
+      }
+    },
+    "card": {
+      "description": "Container card with optional header, badge, body, and footer.",
+      "props": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "badge": {
+          "type": "object",
+          "properties": {
+            "label": { "type": "string" },
+            "variant": { "type": "string", "enum": ["primary", "success", "warning", "danger"] }
+          }
+        },
+        "body": { "type": "string", "required": true },
+        "footer": { "type": "string" }
+      }
+    },
+    "table": {
+      "description": "Data table with striped rows, hover effect, and empty state.",
+      "props": {
+        "headers": { "type": "array", "items": { "type": "string" } },
+        "rows": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } },
+        "striped": { "type": "boolean", "default": true },
+        "hover": { "type": "boolean", "default": true }
+      }
+    },
+    "form_group": {
+      "description": "Input field wrapper with label, validation state, and helper text.",
+      "props": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "required": true },
+        "label": { "type": "string" },
+        "type": { "type": "string", "default": "text", "enum": ["text", "email", "password", "number", "select", "textarea"] },
+        "value": { "type": ["string", "number"] },
+        "placeholder": { "type": "string" },
+        "required": { "type": "boolean", "default": false },
+        "help": { "type": "string" },
+        "error": { "type": "string" },
+        "options": { "type": "array", "description": "Key-value options for select type" }
+      }
+    },
+    "alert": {
+      "description": "Feedback message banner with dismiss button.",
+      "props": {
+        "message": { "type": "string", "required": true },
+        "type": { "type": "string", "enum": ["success", "danger", "warning", "info"], "default": "info" },
+        "dismissible": { "type": "boolean", "default": true }
+      }
+    }
+  }
+}

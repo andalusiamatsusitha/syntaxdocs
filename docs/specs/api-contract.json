@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Syntax Unified API JSON Contract",
+  "description": "Standard JSON envelope format for REST APIs across all Syntax products.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "True if operation succeeded (HTTP 2xx), false otherwise"
+    },
+    "code": {
+      "type": "integer",
+      "description": "HTTP status code (e.g. 200, 201, 400, 401, 403, 404, 500)"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable description of the result or error"
+    },
+    "data": {
+      "type": ["object", "array", "null"],
+      "description": "Main payload data"
+    },
+    "errors": {
+      "type": ["object", "array", "null"],
+      "description": "Field-specific validation error details when success is false"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "timestamp": { "type": "integer", "description": "Unix timestamp in seconds" },
+        "page": { "type": "integer", "description": "Current page for paginated resources" },
+        "per_page": { "type": "integer", "description": "Items per page" },
+        "total": { "type": "integer", "description": "Total record count" }
+      }
+    }
+  },
+  "required": ["success", "code", "message", "data"]
+}
