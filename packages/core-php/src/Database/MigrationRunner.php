@@ -66,17 +66,20 @@ class MigrationRunner
 
             $migration = new $className();
             if (method_exists($migration, 'up')) {
-                $this->pdo->beginTransaction();
                 try {
                     $migration->up($this->pdo);
 
                     $stmt = $this->pdo->prepare('INSERT INTO _migrations (migration, batch) VALUES (?, ?)');
                     $stmt->execute([$name, $batch]);
 
-                    $this->pdo->commit();
+                    if ($this->pdo->inTransaction()) {
+                        $this->pdo->commit();
+                    }
                     $executed[] = $name;
                 } catch (\Throwable $e) {
-                    $this->pdo->rollBack();
+                    if ($this->pdo->inTransaction()) {
+                        $this->pdo->rollBack();
+                    }
                     throw new \RuntimeException("Migration failed: {$name} - " . $e->getMessage(), 0, $e);
                 }
             }

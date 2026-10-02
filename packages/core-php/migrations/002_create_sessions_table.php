@@ -1,7 +1,5 @@
 <?php
 
-use PDO;
-
 class CreateSessionsTable
 {
     public function up(PDO $pdo): void

@@ -1,7 +1,5 @@
 <?php
 
-use PDO;
-
 class CreateUsersTable
 {
     public function up(PDO $pdo): void

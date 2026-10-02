@@ -1,29 +1,28 @@
-version: '3.8'
-
 services:
-  # 1. MySQL Database Service (Multi-Database Support)
+  # 1. MySQL Database Service (Multi-Database: db_cms & db_school)
   mysql:
     image: mysql:8.0
-    container_name: syntax_mysql
+    container_name: syntaxdocs_mysql
     restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root_secret_password
       MYSQL_USER: syntax_user
       MYSQL_PASSWORD: syntax_secret_password
     volumes:
-      - mysql_data:/var/lib/mysql
+      - syntaxdocs_mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
-      - syntax_network
+      - syntaxdocs_network
 
   # 2. PHP 8.2-FPM Backend Service
   php:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
-    container_name: syntax_php
+    container_name: syntaxdocs_php
     restart: unless-stopped
     working_dir: /var/www/syntaxdocs
     volumes:
@@ -31,15 +30,15 @@ services:
     depends_on:
       - mysql
     networks:
-      - syntax_network
+      - syntaxdocs_network
 
   # 3. Nginx Web Server (Routes to CDN, CMS, and School)
   nginx:
     image: nginx:alpine
-    container_name: syntax_nginx
+    container_name: syntaxdocs_nginx
     restart: unless-stopped
     ports:
-      - "8080:8080"   # Central UI CDN & Showcase
+      - "8090:8080"   # Central UI CDN & Showcase
       - "8001:8001"   # CMS Product App
       - "8002:8002"   # School Product App
     volumes:
@@ -49,12 +48,12 @@ services:
     depends_on:
       - php
     networks:
-      - syntax_network
+      - syntaxdocs_network
 
 volumes:
-  mysql_data:
+  syntaxdocs_mysql_data:
     driver: local
 
 networks:
-  syntax_network:
+  syntaxdocs_network:
     driver: bridge
