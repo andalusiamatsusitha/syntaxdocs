@@ -1,0 +1,56 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../autoload.php';
+
+use Syntax\Core\Support\Env;
+use Syntax\Core\Database\MigrationRunner;
+
+// Load .env if present in current working directory
+Env::load(getcwd() . '/.env');
+
+$command = $argv[1] ?? 'help';
+
+switch ($command) {
+    case 'migrate':
+        $connection = 'default';
+        foreach ($argv as $arg) {
+            if (str_starts_with($arg, '--connection=')) {
+                $connection = substr($arg, 13);
+            }
+        }
+
+        echo "\n=== Syntax Core Database Migration ===\n";
+        echo "Koneksi target: [{$connection}]\n";
+
+        try {
+            $runner = new MigrationRunner($connection);
+            $dirs = [
+                __DIR__ . '/../migrations',
+                getcwd() . '/database/migrations'
+            ];
+
+            $executed = $runner->run($dirs);
+            if (empty($executed)) {
+                echo "Tidak ada migrasi baru (database sudah up-to-date).\n\n";
+            } else {
+                echo "Migrasi berhasil dieksekusi:\n";
+                foreach ($executed as $m) {
+                    echo "  [✓] {$m}\n";
+                }
+                echo "\n";
+            }
+        } catch (\Throwable $e) {
+            echo "ERROR: " . $e->getMessage() . "\n\n";
+            exit(1);
+        }
+        break;
+
+    case 'help':
+    default:
+        echo "\nSyntax Core CLI Tools\n";
+        echo "Penggunaan:\n";
+        echo "  php bin/core migrate [--connection=default]   Jalankan migrasi database\n";
+        echo "  php bin/core help                             Tampilkan bantuan ini\n\n";
+        break;
+}
