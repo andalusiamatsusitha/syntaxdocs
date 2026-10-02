@@ -1,0 +1,20 @@
+{
+  "name": "syntax/app-cms",
+  "description": "CMS Product built on top of Syntax Shared Core Framework",
+  "type": "project",
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../packages/core-php"
+    }
+  ],
+  "require": {
+    "syntax/core-php": "@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\CMS\\": "src/"
+    }
+  }
+}

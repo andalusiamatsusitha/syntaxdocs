@@ -1,0 +1,11 @@
+/**
+ * Syntax School — Custom Theme Override
+ * Overrides the base CDN tokens with academic emerald green branding.
+ */
+
+:root {
+  --color-primary: #059669;
+  --color-primary-hover: #047857;
+  --color-primary-light: #ecfdf5;
+  --color-link: #059669;
+}
